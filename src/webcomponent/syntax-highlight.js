@@ -156,7 +156,7 @@ class SyntaxHighlight extends WebComponentBaseClass {
 			} else {
 				try {
 					component.$.code.innerHTML = await getHighlightedCode(component.language, component.innerHTML, options);
-				} catch (err) {
+				} catch {
 					component.$.code.innerHTML = `<pre>${component.innerHTML}</pre>`;
 				}
 			}
