@@ -108,12 +108,11 @@ Renderer.prototype = {
 
 		return code.replace(url, (string) => {
 			let suffix = '';
-			let match = null;
 
 			// We include &lt; and &gt; in the URL for the common cases like <http://google.com>
 			// The problem is that they get transformed into &lt;http://google.com&gt;
 			// Where as &gt; easily looks like part of the URL string.
-			match = gt.exec(string);
+			const match = gt.exec(string);
 			if (match) {
 				string = match[1];
 				suffix = match[2];
