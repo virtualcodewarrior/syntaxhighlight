@@ -25,7 +25,7 @@ export default{
 			let line = lines[index];
 
 			if (line.indexOf(tab) !== -1) {
-				let pos = 0;
+				let pos;
 
 				while ((pos = line.indexOf(tab)) !== -1) {
 					// This is pretty much all there is to the 'smart tabs' logic.
