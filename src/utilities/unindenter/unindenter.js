@@ -2,7 +2,7 @@ function isEmpty(str) {
 	return /^\s*$/.test(str);
 }
 
-export default{
+export default {
 	unindent(code) {
 		const lines = code.split(/\r?\n/);
 		const regex = /^\s*/;

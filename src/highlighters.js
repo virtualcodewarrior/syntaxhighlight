@@ -1,16 +1,16 @@
 const highlighters = {};
 
 export default {
-	id: function(id) {
+	id(id) {
 		const prefix = 'highlighter_';
 		return id.indexOf(prefix) == 0 ? id : prefix + id;
 	},
 
-	get: function(id) {
+	get(id) {
 		return highlighters[this.id(id)];
 	},
 
-	set: function(id, highlighter) {
+	set(id, highlighter) {
 		highlighters[this.id(id)] = highlighter;
-	}
+	},
 };

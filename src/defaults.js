@@ -1,44 +1,44 @@
 export default {
-  /** Additional CSS class names to be added to highlighter elements. */
-  'class-name': '',
+	/** Additional CSS class names to be added to highlighter elements. */
+	'class-name': '',
 
-  /** First line number. */
-  'first-line': 1,
+	/** First line number. */
+	'first-line': 1,
 
-  /**
+	/**
    * Pads line numbers. Possible values are:
    *
    *   false - don't pad line numbers.
    *   true  - automaticaly pad numbers with minimum required number of leading zeroes.
    *   [int] - length up to which pad line numbers.
    */
-  'pad-line-numbers': false,
+	'pad-line-numbers': false,
 
-  /** Lines to highlight. */
-  'highlight': null,
+	/** Lines to highlight. */
+	highlight: null,
 
-  /** Title to be displayed above the code block. */
-  'title': null,
+	/** Title to be displayed above the code block. */
+	title: null,
 
-  /** Enables or disables smart tabs. */
-  'smart-tabs': true,
+	/** Enables or disables smart tabs. */
+	'smart-tabs': true,
 
-  /** Gets or sets tab size. */
-  'tab-size': 4,
+	/** Gets or sets tab size. */
+	'tab-size': 4,
 
-  /** Enables or disables gutter. */
-  'gutter': true,
+	/** Enables or disables gutter. */
+	gutter: true,
 
-  /** Enables quick code copy and paste from double click. */
-  'quick-code': true,
+	/** Enables quick code copy and paste from double click. */
+	'quick-code': true,
 
-  /** Forces code view to be collapsed. */
-  'collapse': false,
+	/** Forces code view to be collapsed. */
+	collapse: false,
 
-  /** Enables or disables automatic links. */
-  'auto-links': true,
+	/** Enables or disables automatic links. */
+	'auto-links': true,
 
-  'unindent': true,
+	unindent: true,
 
-  'html-script': false
+	'html-script': false,
 };

@@ -15,8 +15,7 @@ function splitLines(block) {
 function eachLine(str, callback) {
 	const lines = splitLines(str);
 
-	for (let i = 0, l = lines.length; i < l; i++)
-		lines[i] = callback(lines[i], i);
+	for (let i = 0, l = lines.length; i < l; i++) { lines[i] = callback(lines[i], i); }
 
 	return lines.join('\n');
 }
@@ -38,11 +37,9 @@ function guid(prefix) {
 function merge(obj1, obj2) {
 	const result = {};
 
-	for (const name in obj1)
-		result[name] = obj1[name];
+	for (const name in obj1) { result[name] = obj1[name]; }
 
-	for (const name in obj2)
-		result[name] = obj2[name];
+	for (const name in obj2) { result[name] = obj2[name]; }
 
 	return result;
 }
@@ -73,16 +70,16 @@ function toArray(source) {
  * @return {Boolean} Returns true if input was "true", false if input was "false" and value otherwise.
  */
 function toBoolean(value) {
-	const result = { 'true': true, 'false': false }[value];
+	const result = { true: true, false: false }[value];
 	return result === null ? value : result;
 }
 
 export default {
-	splitLines: splitLines,
-	eachLine: eachLine,
-	guid: guid,
-	merge: merge,
-	trim: trim,
-	toArray: toArray,
-	toBoolean: toBoolean
+	splitLines,
+	eachLine,
+	guid,
+	merge,
+	trim,
+	toArray,
+	toBoolean,
 };

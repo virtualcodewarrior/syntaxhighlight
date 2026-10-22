@@ -8,10 +8,11 @@ function getSyntaxHighlighterScriptTags() {
 	const tags = document.getElementsByTagName('script');
 	const result = [];
 
-	for (let i = 0; i < tags.length; i++)
+	for (let i = 0; i < tags.length; i++) {
 		if (tags[i].type === 'text/syntaxhighlight' || tags[i].type === 'syntaxhighlight') {
 			result.push(tags[i]);
 		}
+	}
 
 	return result;
 }
@@ -33,7 +34,7 @@ function hasClass(target, className) {
  */
 function addClass(target, className) {
 	if (!hasClass(target, className)) {
-		target.className += ' ' + className;
+		target.className += ` ${className}`;
 	}
 }
 
@@ -67,7 +68,7 @@ function attachEvent(obj, type, func, scope) {
 	}
 
 	if (obj.attachEvent) {
-		obj.attachEvent('on' + type, handler);
+		obj.attachEvent(`on${type}`, handler);
 	} else {
 		obj.addEventListener(type, handler, false);
 	}
@@ -101,8 +102,7 @@ function findElement(target, search, reverse /* optional */) {
 		return target;
 	}
 
-	for (let i = 0, l = nodes.length; nodes && i < l && found == null; i++)
-		found = findElement(nodes[i], search, reverse);
+	for (let i = 0, l = nodes.length; nodes && i < l && found == null; i++) { found = findElement(nodes[i], search, reverse); }
 
 	return found;
 }
@@ -131,10 +131,10 @@ function popup(url, name, width, height, options) {
 	const x = (screen.width - width) / 2;
 	const y = (screen.height - height) / 2;
 
-	options += ', left=' + x +
-		', top=' + y +
-		', width=' + width +
-		', height=' + height
+	options += `, left=${x
+	}, top=${y
+	}, width=${width
+	}, height=${height}`
 	;
 	options = options.replace(/^,/, '');
 
@@ -212,22 +212,22 @@ function quickCodeHandler(e) {
 	textarea.select();
 
 	// set up handler for lost focus
-	attachEvent(textarea, 'blur', function(e) {
+	attachEvent(textarea, 'blur', (e) => {
 		textarea.parentNode.removeChild(textarea);
 		removeClass(highlighterDiv, 'source');
 	});
 }
 
 export default {
-	quickCodeHandler: quickCodeHandler,
-	create: create,
-	popup: popup,
-	hasClass: hasClass,
-	addClass: addClass,
-	removeClass: removeClass,
-	attachEvent: attachEvent,
-	findElement: findElement,
-	findParentElement: findParentElement,
-	getSyntaxHighlighterScriptTags: getSyntaxHighlighterScriptTags,
-	findElementsToHighlight: findElementsToHighlight
+	quickCodeHandler,
+	create,
+	popup,
+	hasClass,
+	addClass,
+	removeClass,
+	attachEvent,
+	findElement,
+	findParentElement,
+	getSyntaxHighlighterScriptTags,
+	findElementsToHighlight,
 };
