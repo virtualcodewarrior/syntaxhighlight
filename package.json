@@ -9,7 +9,7 @@
   "scripts": {
     "build": "node ./build.js",
     "doc": "node ./node_modules/jsdoc/jsdoc.js src -r -d doc -c jsdoc.conf.cjs",
-    "lint": "eslint --color -c eslint.config.mjs src/**/*.js test/**/*.js src/languages/**/*.js src/utilities/**/*.js",
+    "lint": "eslint --color -c eslint.config.mjs src test",
     "unittest": "node ./node_modules/karma/bin/karma start karma.conf.cjs --single-run",
     "watch-test": "node ./node_modules/karma/bin/karma start karma.conf.cjs visible --watch",
     "coverage": "node ./node_modules/karma/bin/karma start karma.conf.cjs coverage --single-run",
