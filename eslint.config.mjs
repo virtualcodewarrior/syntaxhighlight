@@ -155,12 +155,12 @@ export default [
 			'func-names': 'off',
 			'func-style': 'off',
 			'id-blacklist': 'off',
-			'id-length': ['error', { min: 2, exceptions: ['x', 'y', 'z', '_', '$', 'r', 'g', 'b'] }],
+			'id-length': ['error', { min: 2, exceptions: ['x', 'y', 'z', '_', '$', 'r', 'g', 'b', 'i', 'j', 'l', 'e'] }],
 			'id-match': ['error', '(^[A-Za-z_0-9]+$)|(^p_[A-Z]([a-z]+[0-9]*([A-Z][a-z0-9]*)*)$)|(^_?[a-zE]+[0-9]*([A-Z][a-z0-9]*)*$)|NaN'],
 			indent: ['error', 'tab', { VariableDeclarator: 0, SwitchCase: 1 }],
 			'jsx-quotes': 'off',
 			'key-spacing': ['error', { beforeColon: false, afterColon: true }],
-			'keyword-spacing': ['error', { before: true, after: true, overrides: { default: { after: false } } }],
+			'keyword-spacing': ['error', { before: true, after: true }],
 			'line-comment-position': 'off',
 			'linebreak-style': ['error', 'unix'],
 			'lines-around-comment': 'off',
@@ -254,8 +254,12 @@ export default [
 			'jasmine/no-focused-tests': ['error'],
 			'jasmine/expect-matcher': ['error'],
 			'jasmine/expect-single-argument': ['error'],
-			'jasmine/missing-expect': ['error'],
-			'jasmine/no-describe-variables': ['error'],
+			// Options replace the defaults, so the built-ins must be repeated alongside the
+			// project's own assertion helper (which calls expect() internally).
+			'jasmine/missing-expect': ['error', 'expect()', 'expectAsync()', 'expectSelectorToBePresent()'],
+			// Declaring `let` in a describe block and assigning it in beforeAll is idiomatic
+			// Jasmine for sharing state across specs; downgraded from error by deliberate choice.
+			'jasmine/no-describe-variables': ['warn'],
 			'jasmine/no-assign-spyon': ['error'],
 			'jasmine/no-expect-in-setup-teardown': ['error'],
 			'jasmine/no-global-setup': ['error'],

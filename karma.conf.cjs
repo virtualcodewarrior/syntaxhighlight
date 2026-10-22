@@ -22,7 +22,6 @@ const preprocessors = {};
 const plugins = [
 	"karma-jasmine-html-reporter",
 	"karma-spec-reporter",
-	"karma-jasmine-es6",
 	"karma-jasmine",
 	"karma-chrome-launcher",
 	"karma-firefox-launcher",
@@ -53,13 +52,14 @@ module.exports = function(config) {
 		// frameworks to use
 		// first frameworks: https://npmjs.org/browse/keyword/karma-adapter
 		frameworks: [
-			"jasmine-es6",
 			"jasmine",
 		],
 
 
 		// list of files / patterns to load in the browser
 		files: [
+			// Must load first: defers karma start until DOMContentLoaded so ES modules are ready.
+			{ pattern: "karma/withES6.js", watched: false, served: true, included: true },
 			{ pattern: "node_modules/web-component-base-class/src/*.js", type: "module", watched: false, served: true, included: false, second: false, nocache: true },
 			{ pattern: "src/**/*.+(map|html|txt|css)", type: "module", watched: true, served: true, included: false, second: false, nocache: true },
 			{ pattern: "src/**/*.+(js)", type: "module", watched: true, served: true, second: false, nocache: true },
