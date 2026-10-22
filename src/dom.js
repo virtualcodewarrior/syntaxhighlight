@@ -83,26 +83,24 @@ function attachEvent(obj, type, func, scope) {
  * @return {Element} Returns found child or parent element on null.
  */
 function findElement(target, search, reverse /* optional */) {
-	if (target == null) {
+	if (target === null || target === undefined) {
 		return null;
 	}
 
 	const nodes = reverse !== true ? target.childNodes : [target.parentNode];
 	const propertyToFind = { '#': 'id', '.': 'className' }[search.substr(0, 1)] || 'nodeName';
-	let expectedValue;
-	let found;
-
-	expectedValue = propertyToFind !== 'nodeName'
+	const expectedValue = propertyToFind !== 'nodeName'
 		? search.substr(1)
 		: search.toUpperCase()
 	;
+	let found;
 
 	// main return of the found node
 	if ((target[propertyToFind] || '').indexOf(expectedValue) !== -1) {
 		return target;
 	}
 
-	for (let i = 0, l = nodes.length; nodes && i < l && found == null; i++) { found = findElement(nodes[i], search, reverse); }
+	for (let i = 0, l = nodes.length; i < l && (found === null || found === undefined); i++) { found = findElement(nodes[i], search, reverse); }
 
 	return found;
 }
@@ -212,7 +210,7 @@ function quickCodeHandler(e) {
 	textarea.select();
 
 	// set up handler for lost focus
-	attachEvent(textarea, 'blur', (e) => {
+	attachEvent(textarea, 'blur', () => {
 		textarea.parentNode.removeChild(textarea);
 		removeClass(highlighterDiv, 'source');
 	});

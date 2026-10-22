@@ -35,13 +35,7 @@ function guid(prefix) {
  * @return {Object} Returns combination of both objects.
  */
 function merge(obj1, obj2) {
-	const result = {};
-
-	for (const name in obj1) { result[name] = obj1[name]; }
-
-	for (const name in obj2) { result[name] = obj2[name]; }
-
-	return result;
+	return Object.assign({}, obj1, obj2);
 }
 
 /**

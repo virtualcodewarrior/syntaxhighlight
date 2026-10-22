@@ -1,24 +1,17 @@
 import { applyRegexList } from './utilities/syntaxhighlight-match/syntaxhighlight-match.js';
 
-function HtmlScript(BrushXML, brushClass) {
-	let scriptBrush;
+function HtmlScript(BrushXML, BrushClass) {
 	const xmlBrush = new BrushXML();
 
-	if (brushClass == null) {
+	if (BrushClass === null || BrushClass === undefined) {
 		return;
 	}
 
-	scriptBrush = new brushClass();
+	const scriptBrush = new BrushClass();
 
-	if (scriptBrush.htmlScript == null) {
-		throw new Error(`Brush wasn't configured for html-script option: ${brushClass.brushName}`);
+	if (scriptBrush.htmlScript === null || scriptBrush.htmlScript === undefined) {
+		throw new Error(`Brush wasn't configured for html-script option: ${BrushClass.brushName}`);
 	}
-
-	xmlBrush.regexList.push(
-		{ regex: scriptBrush.htmlScript.code, func: process },
-	);
-
-	this.regexList = xmlBrush.regexList;
 
 	function offsetMatches(matches, offset) {
 		for (let j = 0, l = matches.length; j < l; j++) {
@@ -26,7 +19,7 @@ function HtmlScript(BrushXML, brushClass) {
 		}
 	}
 
-	function process(match, info) {
+	function process(match) {
 		const code = match.code;
 		let results = [];
 		const regexList = scriptBrush.regexList;
@@ -34,8 +27,8 @@ function HtmlScript(BrushXML, brushClass) {
 		const htmlScript = scriptBrush.htmlScript;
 		let matches;
 
-		function add(matches) {
-			results = results.concat(matches);
+		function add(added) {
+			results = results.concat(added);
 		}
 
 		matches = applyRegexList(code, regexList);
@@ -56,10 +49,16 @@ function HtmlScript(BrushXML, brushClass) {
 			add(matches);
 		}
 
-		for (let j = 0, l = results.length; j < l; j++) { results[j].brushName = brushClass.brushName; }
+		for (let j = 0, l = results.length; j < l; j++) { results[j].brushName = BrushClass.brushName; }
 
 		return results;
 	}
+
+	xmlBrush.regexList.push(
+		{ regex: scriptBrush.htmlScript.code, func: process },
+	);
+
+	this.regexList = xmlBrush.regexList;
 }
 
 export default HtmlScript;

@@ -9,18 +9,17 @@ import { xRegExp } from '../../syntaxhighlight-regex/syntaxhighlight-regex.js';
  * @returns {Array}         Returns a list of Match objects.
  */
 export function find(code, regexInfo) {
-	function defaultAdd(match, regexInfo) {
+	function defaultAdd(match) {
 		return match[0];
 	}
 
-	let index = 0,
-	match = null,
+	let match,
 	matches = [],
-	process = regexInfo.func ? regexInfo.func : defaultAdd,
 	pos = 0
 	;
+	const process = regexInfo.func ? regexInfo.func : defaultAdd;
 
-	while (match = xRegExp.exec(code, regexInfo.regex, pos)) {
+	while ((match = xRegExp.exec(code, regexInfo.regex, pos))) {
 		let resultMatch = process(match, regexInfo);
 
 		if (typeof resultMatch === 'string') {
@@ -60,10 +59,9 @@ export function sort(matches) {
 }
 
 export function compact(matches) {
-	let result = [],
-	i, l;
+	const result = [];
 
-	for (i = 0, l = matches.length; i < l; i++) {
+	for (let i = 0, l = matches.length; i < l; i++) {
 		if (matches[i]) {
 			result.push(matches[i]);
 		}
@@ -80,25 +78,25 @@ export function compact(matches) {
 export function removeNested(matches) {
 	// Optimized by Jose Prado (http://joseprado.com)
 	for (let i = 0, l = matches.length; i < l; i++) {
-		if (matches[i] === null) {
-			continue;
-		}
+		if (matches[i] !== null) {
+			const itemI = matches[i],
+			itemIEndPos = itemI.index + itemI.length
+			;
 
-		const itemI = matches[i],
-		itemIEndPos = itemI.index + itemI.length
-		;
+			// `matches.length` never changes here (elements are nulled, never removed),
+			// so it is read inline rather than cached in a shadowing `l`.
+			for (let j = i + 1; j < matches.length && matches[i] !== null; j++) {
+				const itemJ = matches[j];
 
-		for (let j = i + 1, l = matches.length; j < l && matches[i] !== null; j++) {
-			const itemJ = matches[j];
-
-			if (itemJ === null) {
-				continue;
-			} else if (itemJ.index > itemIEndPos) {
-				break;
-			} else if (itemJ.index === itemI.index && itemJ.length > itemI.length) {
-				matches[i] = null;
-			} else if (itemJ.index >= itemI.index && itemJ.index < itemIEndPos) {
-				matches[j] = null;
+				if (itemJ !== null) {
+					if (itemJ.index > itemIEndPos) {
+						break;
+					} else if (itemJ.index === itemI.index && itemJ.length > itemI.length) {
+						matches[i] = null;
+					} else if (itemJ.index >= itemI.index && itemJ.index < itemIEndPos) {
+						matches[j] = null;
+					}
+				}
 			}
 		}
 	}
