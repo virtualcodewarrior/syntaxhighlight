@@ -11,7 +11,7 @@ function process(value) {
 	return result === undefined ? value : result;
 }
 
-export default{
+export default {
 	defaults(target, source) {
 		for (const key in source || {}) {
 			if (!target.hasOwnProperty(key)) {

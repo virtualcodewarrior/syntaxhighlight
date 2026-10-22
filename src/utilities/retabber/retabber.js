@@ -15,7 +15,7 @@ function insertSpaces(line, pos, count) {
 	;
 }
 
-export default{
+export default {
 	smart(code, tabSize) {
 		const lines = code.split(/\r?\n/);
 		const tab = '\t';
